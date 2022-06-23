@@ -1,8 +1,16 @@
 const processSeedButton = document.getElementById("processSeedButton");
+const seedInput = document.getElementById("seedInput");
+
+seedInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        processSeedButton.click();
+    }
+});
 
 processSeedButton.addEventListener("click", function (e) {
     const shortFlag = document.getElementById("shortFlag");
-    const seedInput = document.getElementById("seedInput");
+    const specialFlag = document.getElementById("specialFlag");
     const seed = seedInput.value;
     var result = btoa(seed);
     
@@ -10,6 +18,8 @@ processSeedButton.addEventListener("click", function (e) {
     &&  shortFlag.checked) 
         result = result.substring(0, 20);
     
-    console.log(result);
+    if (specialFlag.checked)
+        result += '='
+    
     navigator.clipboard.writeText(result);
 });
